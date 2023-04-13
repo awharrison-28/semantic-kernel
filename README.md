@@ -1,8 +1,9 @@
 # Semantic Kernel
 
+[![Python package](https://img.shields.io/pypi/v/semantic-kernel)](https://pypi.org/project/semantic-kernel/)
 [![Nuget package](https://img.shields.io/nuget/vpre/Microsoft.SemanticKernel)](https://www.nuget.org/packages/Microsoft.SemanticKernel/)
-[![License: MIT](https://img.shields.io/github/license/microsoft/semantic-kernel)](https://github.com/microsoft/semantic-kernel/blob/main/LICENSE)
 [![dotnet](https://github.com/microsoft/semantic-kernel/actions/workflows/dotnet-ci.yml/badge.svg?branch=main)](https://github.com/microsoft/semantic-kernel/actions/workflows/dotnet-ci.yml)
+[![License: MIT](https://img.shields.io/github/license/microsoft/semantic-kernel)](https://github.com/microsoft/semantic-kernel/blob/main/LICENSE)
 [![Discord](https://img.shields.io/discord/1063152441819942922)](https://aka.ms/SKDiscord)
 
 > ℹ️ **NOTE**: This project is in early alpha and, just like AI, will evolve quickly.
@@ -10,7 +11,8 @@
 > Please contribute by
 > using GitHub [Discussions](https://github.com/microsoft/semantic-kernel/discussions),
 > opening GitHub [Issues](https://github.com/microsoft/semantic-kernel/issues/new/choose),
-> sending us [PRs](https://github.com/microsoft/semantic-kernel/pulls).
+> sending us [PRs](https://github.com/microsoft/semantic-kernel/pulls),
+> joining our [Discord community](https://aka.ms/SKDiscord).
 
 **Semantic Kernel (SK)** is a lightweight SDK enabling integration of AI Large
 Language Models (LLMs) with conventional programming languages. The SK extensible
@@ -39,6 +41,20 @@ peek at how the SDK is being built. SK has been released as open-source so that 
 pioneering developers can join us in crafting the future of this landmark moment
 in the history of computing.
 
+## Get Started with Semantic Kernel ⚡
+
+Semantic Kernel is available to explore AI and build apps with C# and Python:
+
+<div style="display:flex;height:30px;padding:5px 0 5px 10px;">
+<img src="https://user-images.githubusercontent.com/371009/230673036-fad1e8e6-5d48-49b1-a9c1-6f9834e0d165.png" style="margin-right:12px" height="30"/>
+<a href="dotnet/README.md">Using Semantic Kernel in C#</a>.
+</div>
+
+<div style="display:flex;height:30px;padding:5px 0 5px 10px;">
+<img src="https://user-images.githubusercontent.com/371009/230673733-7a447d30-b48e-46e1-bd84-2b321c90649e.png" style="margin-right:12px" height="30"/>
+<a href="python/README.md">Using Semantic Kernel in Python</a>.
+</div>
+
 ## Samples ⚡
 
 If you would like a quick overview about how Semantic Kernel can integrate with your
@@ -55,10 +71,12 @@ and try these examples:
 | [Simple chat summary](samples/apps/chat-summary-webapp-react/README.md) | Use ready-to-use skills and get those skills into your app easily.                                                                |
 | [Book creator](samples/apps/book-creator-webapp-react/README.md)        | Use planner to deconstruct a complex goal and envision using the planner in your app.                                             |
 | [Authentication and APIs](samples/apps/auth-api-webapp-react/README.md) | Use a basic connector pattern to authenticate and connect to an API and imagine integrating external data into your app's LLM AI. |
-| [Github repository Q&A](samples/apps/github-qna-webapp-react/README.md) | Use embeddings and memory to store recent data and allow you to query against it.                                                 |
+| [GitHub repository Q&A](samples/apps/github-qna-webapp-react/README.md) | Use embeddings and memory to store recent data and allow you to query against it.                                                 |
+| [Copilot Chat Sample App](samples/apps/copilot-chat-app/README.md)      | Build your own chat experience based on Semantic Kernel.                                                                          |
 
 For a more hands-on overview, you can also run the
-[Getting Started notebook](samples/notebooks/dotnet/Getting-Started-Notebook.ipynb),
+[Getting Started with C# notebook](samples/notebooks/dotnet/Getting-Started-Notebook.ipynb) and
+[Getting Started with Python notebook](samples/notebooks/python/Getting-Started-Notebook.ipynb),
 looking into the syntax, creating
 [Semantic Functions](docs/GLOSSARY.md),
 working with Memory, and see how the kernel works.
@@ -79,60 +97,6 @@ working with Memory, and see how the kernel works.
      [Polyglot extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode)
      to run the notebooks.
 
-## Get Started with Semantic Kernel ⚡
-
-Here is a quick example of how to use Semantic Kernel from a C# console app.
-
-1.  Create a new project, targeting .NET 6 or newer, and add the
-    `Microsoft.SemanticKernel` nuget package:
-
-        dotnet add package Microsoft.SemanticKernel --prerelease
-
-    See [nuget.org](https://www.nuget.org/packages/Microsoft.SemanticKernel/) for
-    the latest version and more instructions.
-
-2.  Copy and paste the following code into your project, with your Azure OpenAI
-    key in hand (you can create one
-    [here](https://learn.microsoft.com/azure/cognitive-services/openai/quickstart?pivots=rest-api)).
-
-```csharp
-using Microsoft.SemanticKernel;
-
-var kernel = Kernel.Builder.Build();
-
-// For Azure Open AI details please see
-// https://learn.microsoft.com/azure/cognitive-services/openai/quickstart?pivots=rest-api
-kernel.Config.AddAzureOpenAITextCompletionService(
-    "davinci-azure",                     // Alias used by the kernel
-    "text-davinci-003",                  // Azure OpenAI *Deployment ID*
-    "https://contoso.openai.azure.com/", // Azure OpenAI *Endpoint*
-    "...your Azure OpenAI Key..."        // Azure OpenAI *Key*
-);
-
-string summarizePrompt = @"{{$input}}
-
-Give me a TLDR with the fewest words.";
-
-string jokePrompt = @"{{$input}}
-
-Write a G rated joke about it, only two lines, with rhyme.";
-
-var summarize = kernel.CreateSemanticFunction(summarizePrompt);
-var joker = kernel.CreateSemanticFunction(jokePrompt);
-
-string inputText = @"
-1st Law of Thermodynamics - Energy cannot be created or destroyed.
-2nd Law of Thermodynamics - For a spontaneous process, the entropy of the universe increases.
-3rd Law of Thermodynamics - A perfect crystal at zero Kelvin has zero entropy.";
-
-var output = await kernel.RunAsync(inputText, summarize, joker);
-
-Console.WriteLine(output);
-
-// Output => Entropy is a funny thing,
-//           It's always increasing, no matter what we bring!
-```
-
 ## Contributing and Community
 
 We welcome your contributions and suggestions to SK community! One of the easiest
@@ -149,10 +113,6 @@ To learn more and get started:
 - Learn how to [contribute](https://github.com/microsoft/semantic-kernel/blob/main/CONTRIBUTING.md) to the project
 - Join the [Discord community](https://aka.ms/SKDiscord)
 - Follow the team on our [blog](https://aka.ms/sk/blog)
-
-<img src="https://user-images.githubusercontent.com/36091529/225807182-22ad65e9-82c6-4727-bb77-d1c256736045.png" align="left" width="40px"/>
-<b>Python developers:</b> Semantic Kernel is coming to Python soon! Check out the work-in-progress and contribute in the <a href="https://github.com/microsoft/semantic-kernel/tree/python-preview"><b>python-preview</b></a> branch.
-<br clear="left"/>
 
 ## Code of Conduct
 
