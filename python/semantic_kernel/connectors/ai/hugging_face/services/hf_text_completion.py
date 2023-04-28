@@ -73,7 +73,16 @@ class HuggingFaceTextCompletion(TextCompletionClientBase):
                 temperature=request_settings.temperature,
                 top_p=request_settings.top_p,
                 max_new_tokens=request_settings.max_tokens,
+<<<<<<< HEAD
                 pad_token_id=50256,  # EOS token
+=======
+                pad_token_id=50256 # EOS token
+            )
+            result = self.generator(
+                prompt,
+                num_return_sequences=1,
+                generation_config=generation_config
+>>>>>>> 7aea44a (modified workflow descriptions and following best-practices for hf pipelines)
             )
             result = self.generator(
                 prompt, num_return_sequences=1, generation_config=generation_config
