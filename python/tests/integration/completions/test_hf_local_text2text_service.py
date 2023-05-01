@@ -23,5 +23,6 @@ async def test_hf_local_text2text_generation_service_with_skills():
 
     await e2e_text_completion.simple_completion(kernel)
 
+
 if __name__ == "__main__":
     asyncio.run(test_hf_local_text2text_generation_service_with_skills())
